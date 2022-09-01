@@ -3,7 +3,7 @@ package ddsrpc
 import (
 	"context"
 	"fmt"
-	"github.com/892294101/ddsrpc/proto"
+	"github.com/892294101/ddsrpc/pcb"
 	"github.com/pkg/errors"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/credentials/insecure"
