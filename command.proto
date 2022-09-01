@@ -1,0 +1,34 @@
+syntax = "proto3";
+
+option go_package = "./;pcb";
+
+package pcb;
+
+service Greeter {
+    rpc Stop (StopCommand) returns (StopReply) {}
+    rpc info (InfoAllCommand) returns (InfoAllReply) {}
+
+}
+
+
+message StopCommand {
+    uint32 instruction = 1; // 表示正常停止、还是强制停止
+}
+
+message StopReply {
+    uint32 ReturnStatus = 01; // 返回类型,0 表示发送成功，并正常返回。 1 表示无法正常停止，并返回为什么无法停止原因。 不管是否能停止，检查点信息都更新
+    string ProcessName = 2; // 进程名称
+    bytes LagChkpt = 3; // 停止命令返回
+    bytes TimeSinceChkpt = 4; // 当前抓取的事务耗时
+    bytes Content = 5; // 返回内容
+}
+
+
+message InfoAllCommand {
+    uint32 instruction = 1;
+}
+
+message InfoAllReply {
+    bytes State = 1;
+    bytes Content = 2;
+}
