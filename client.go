@@ -34,47 +34,43 @@ func (r *RpcClient) newRpcClient(port string) error {
 
 }
 
-func (r *RpcClient) Stop() (msg string, err error) {
+func (r *RpcClient) Stop() (*pcb.StopReply, error) {
 	// 初始化上下文，设置请求超时时间为15秒
 	ctx, cancel := context.WithTimeout(context.Background(), time.Second*6)
 	defer cancel()
 
 	// 调用Stop接口，发送一条消息
-	_, err = r.rc.Stop(ctx, &pcb.StopCommand{Instruction: 1})
+	sr, err := r.rc.Stop(ctx, &pcb.StopCommand{Instruction: 1})
 	if err != nil {
-		return "", err
+		return nil, err
 	}
-
-	r.conn.Close()
-	return "", nil
+	return sr, nil
 }
 
-func (r *RpcClient) InfoAll() error {
+func (r *RpcClient) InfoAll() (*pcb.InfoAllReply, error) {
 	// 初始化上下文，设置请求超时时间为15秒
 	ctx, cancel := context.WithTimeout(context.Background(), time.Second*6)
 	defer cancel()
 
 	iac, err := r.rc.InfoAll(ctx, &pcb.InfoAllCommand{Instruction: 1})
 	if err != nil {
-		return err
+		return nil, err
 	}
 	fmt.Println(iac)
-	return nil
+	return iac, nil
 }
 
-func (r *RpcClient) InfoDetail() error {
+func (r *RpcClient) InfoDetail() (*pcb.InfoDetailReply, error) {
 	// 初始化上下文，设置请求超时时间为15秒
 	ctx, cancel := context.WithTimeout(context.Background(), time.Second*6)
 	defer cancel()
 
 	iac, err := r.rc.InfoDetail(ctx, &pcb.InfoDetailCommand{Instruction: 1})
 	if err != nil {
-		return err
+		return nil, err
 	}
-	fmt.Println(iac)
-	return nil
+	return iac, nil
 }
-
 
 func (r *RpcClient) StopRpc() error {
 	return r.conn.Close()
