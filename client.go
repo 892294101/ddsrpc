@@ -8,7 +8,6 @@ import (
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/credentials/insecure"
 	"net"
-	"os"
 	"time"
 )
 
@@ -41,30 +40,31 @@ func (r *RpcClient) Stop() (msg string, err error) {
 	defer cancel()
 
 	// 调用Stop接口，发送一条消息
-	rcm, err := r.rc.Stop(ctx, &pcb.StopCommand{Instruction: 1})
+	_, err = r.rc.Stop(ctx, &pcb.StopCommand{Instruction: 1})
 	if err != nil {
 		return "", err
 	}
-	fmt.Fprint(os.Stdout, rcm.ProcessName)
+
 	r.conn.Close()
 	return "", nil
 }
 
-func (r *RpcClient) Info() error {
+func (r *RpcClient) InfoAll() error {
 	// 初始化上下文，设置请求超时时间为15秒
 	ctx, cancel := context.WithTimeout(context.Background(), time.Second*6)
 	defer cancel()
 
 	// 调用info接口，发送一条消息
-	iac, err := r.rc.Info(ctx, &pcb.InfoAllCommand{Instruction: 1})
+	iac, err := r.rc.InfoAll(ctx, &pcb.InfoAllCommand{Instruction: 1})
 	if err != nil {
 		return err
 	}
-
-	fmt.Fprint(os.Stdout, string(iac.Content))
-	r.conn.Close()
-
+	fmt.Println(iac)
 	return nil
+}
+
+func (r *RpcClient) StopRpc() error {
+	return r.conn.Close()
 }
 
 func NewRpcClient(port string) (*RpcClient, error) {
