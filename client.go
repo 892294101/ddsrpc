@@ -45,7 +45,7 @@ func (r *RpcClient) Stop() (msg string, err error) {
 	if err != nil {
 		return "", err
 	}
-	fmt.Fprint(os.Stdout, string(rcm.ProcessName))
+	fmt.Fprint(os.Stdout, rcm.ProcessName)
 	r.conn.Close()
 	return "", nil
 }

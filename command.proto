@@ -6,7 +6,8 @@ package pcb;
 
 service Greeter {
     rpc Stop (StopCommand) returns (StopReply) {}
-    rpc info (InfoAllCommand) returns (InfoAllReply) {}
+    rpc InfoAll (InfoAllCommand) returns (InfoAllReply) {}
+    rpc InfoSummary (InfoSummaryCommand) returns (InfoSummaryReply) {}
 
 }
 
@@ -16,11 +17,8 @@ message StopCommand {
 }
 
 message StopReply {
-    uint32 ReturnStatus = 01; // 返回类型,0 表示发送成功，并正常返回。 1 表示无法正常停止，并返回为什么无法停止原因。 不管是否能停止，检查点信息都更新
-    string ProcessName = 2; // 进程名称
-    bytes LagChkpt = 3; // 停止命令返回
-    bytes TimeSinceChkpt = 4; // 当前抓取的事务耗时
-    bytes Content = 5; // 返回内容
+    uint32 ReturnStatus = 1; // 返回类型,0 表示发送成功，并正常返回。 1 表示无法正常停止，并返回为什么无法停止原因。 不管是否能停止，检查点信息都更新
+    string Content = 2; // 返回内容
 }
 
 
@@ -29,6 +27,25 @@ message InfoAllCommand {
 }
 
 message InfoAllReply {
-    bytes State = 1;
-    bytes Content = 2;
+    string DBType = 1;
+    string Program = 2;
+    string LASTSTARTED = 3;
+    string STATUS = 4;
+    string FILENUMBER = 5;
+    int64 FILEOFFSET = 6;
+    string LOGNUMBER = 7;
+    int64 LOGOFFSET = 8;
+}
+
+message InfoSummaryCommand {
+    uint32 instruction = 1;
+}
+
+message InfoSummaryReply {
+    string DBType = 1;
+    string Program = 2;
+    string Status = 3;
+    string Group = 4;
+    string Lag = 5;
+    string TimeSinceChkpt = 6;
 }
