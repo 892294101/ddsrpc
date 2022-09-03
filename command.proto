@@ -7,7 +7,7 @@ package pcb;
 service Greeter {
     rpc Stop (StopCommand) returns (StopReply) {}
     rpc InfoAll (InfoAllCommand) returns (InfoAllReply) {}
-    rpc InfoSummary (InfoSummaryCommand) returns (InfoSummaryReply) {}
+    rpc InfoDetail (InfoDetailCommand) returns (InfoDetailReply) {}
 
 }
 
@@ -29,23 +29,25 @@ message InfoAllCommand {
 message InfoAllReply {
     string DBType = 1;
     string Program = 2;
-    string LASTSTARTED = 3;
-    string STATUS = 4;
-    string FILENUMBER = 5;
-    int64 FILEOFFSET = 6;
-    string LOGNUMBER = 7;
-    int64 LOGOFFSET = 8;
-}
-
-message InfoSummaryCommand {
-    uint32 instruction = 1;
-}
-
-message InfoSummaryReply {
-    string DBType = 1;
-    string Program = 2;
     string Status = 3;
     string Group = 4;
     string Lag = 5;
     string TimeSinceChkpt = 6;
+
+
+}
+
+message InfoDetailCommand {
+    uint32 instruction = 1;
+}
+
+message InfoDetailReply {
+    string DBType = 1;
+    string Program = 2;
+    string LASTSTARTED = 3;
+    string STATUS = 4;
+    string FILENUMBER = 5;
+    int64  FILEOFFSET = 6;
+    string LOGNUMBER = 7;
+    int64  LOGOFFSET = 8;
 }
