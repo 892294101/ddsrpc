@@ -2,7 +2,6 @@ package ddsrpc
 
 import (
 	"context"
-	"fmt"
 	"github.com/892294101/ddsrpc/pcb"
 	"github.com/pkg/errors"
 	"google.golang.org/grpc"
@@ -56,7 +55,6 @@ func (r *RpcClient) InfoAll() (*pcb.InfoAllReply, error) {
 	if err != nil {
 		return nil, err
 	}
-	fmt.Println(iac)
 	return iac, nil
 }
 
