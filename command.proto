@@ -44,11 +44,13 @@ message InfoDetailCommand {
 message InfoDetailReply {
     string Dbtype = 1;
     string Program = 2;
-    string Groupid = 3;
+    string GroupID = 3;
     string LastStarted = 4;
     string Status = 5;
     uint64 FileNumber = 6;
     uint64 FileOffset = 7;
     uint64 LogNumber = 8;
     uint64 LogOffset = 9;
+    string Lag = 10;
+    string TimeSinceChkpt = 11;
 }
