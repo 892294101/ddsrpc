@@ -6,8 +6,8 @@ package pcb;
 
 service Greeter {
     rpc Stop (StopCommand) returns (StopReply) {}
-    rpc InfoAll (InfoAllCommand) returns (InfoAllReply) {}
-    rpc InfoDetail (InfoDetailCommand) returns (InfoDetailReply) {}
+    //rpc InfoAll (InfoAllCommand) returns (InfoAllReply) {}
+    //rpc InfoDetail (InfoDetailCommand) returns (InfoDetailReply) {}
 
 }
 
