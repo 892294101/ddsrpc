@@ -21,6 +21,7 @@ message StopReply {
     string Content = 2; // 返回内容
 }
 
+/*
 
 message InfoAllCommand {
     uint32 Instruction = 1;
@@ -54,3 +55,4 @@ message InfoDetailReply {
     string Lag = 10;
     string TimeSinceChkpt = 11;
 }
+*/
